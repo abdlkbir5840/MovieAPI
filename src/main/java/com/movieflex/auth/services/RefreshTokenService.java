@@ -11,16 +11,16 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Service
-public class RedreshTokenService {
+public class RefreshTokenService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
-    public RedreshTokenService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository) {
+    public RefreshTokenService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository) {
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
     public RefreshToken createRefreshToken(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
         RefreshToken refreshToken = user.getRefreshToken();
         if (refreshToken == null) {
